@@ -9,6 +9,8 @@ import java.time.Instant;
 @RequiredArgsConstructor
 public class FakePaymentService {
 
+    private static final String LOG_FORMAT = "A new payment of %s has been initiated";
+
     private final PaymentIdGenerator paymentIdGenerator;
 
     public Payment process(PaymentRequest paymentRequest) {
@@ -18,8 +20,12 @@ public class FakePaymentService {
                 .timestamp(Instant.now())
                 .status(PaymentStatus.STARTED)
                 .build();
-        log.info(String.format("A new payment of %s has been initiated", payment.getMoney()));
+        log.info(createLogEntry(payment));
         return payment;
+    }
+
+    private String createLogEntry(Payment payment) {
+        return String.format(LOG_FORMAT, payment.getMoney());
     }
 
 }

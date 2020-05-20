@@ -1,14 +1,14 @@
 package pl.training.shop.payments;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Value;
 import org.javamoney.moneta.FastMoney;
 
 @Builder
-@Data
+@Value
 public class PaymentRequest {
 
-    private Long id;
-    private FastMoney money;
+    Long id;
+    FastMoney money;
 
 }
