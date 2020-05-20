@@ -4,6 +4,7 @@ import lombok.extern.java.Log;
 import org.javamoney.moneta.FastMoney;
 import pl.training.shop.payments.FakePaymentService;
 import pl.training.shop.payments.IncrementalPaymentIdGenerator;
+import pl.training.shop.payments.LoggingProxyPaymentService;
 import pl.training.shop.payments.PaymentRequest;
 
 import javax.money.CurrencyUnit;
@@ -19,7 +20,11 @@ public class Application {
 
     public static void main(String[] args) {
         var paymentIdGenerator = new IncrementalPaymentIdGenerator();
-        var paymentService = new FakePaymentService(paymentIdGenerator);
+        var fakePaymentService = new FakePaymentService(paymentIdGenerator);
+        var paymentService = new LoggingProxyPaymentService(fakePaymentService);
+
+        //-------------------------------------------------------------------------
+
         var paymentRequest = PaymentRequest.builder()
                 .money(money)
                 .build();
