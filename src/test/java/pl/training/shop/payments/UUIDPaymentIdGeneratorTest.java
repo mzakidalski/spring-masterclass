@@ -1,5 +1,6 @@
 package pl.training.shop.payments;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,6 +11,7 @@ public class UUIDPaymentIdGeneratorTest {
 
     private final UUIDPaymentIdGenerator paymentIdGenerator = new UUIDPaymentIdGenerator();
 
+    @DisplayName("Should generate valid id")
     @Test
     void shouldGenerateValidId() {
         String id = paymentIdGenerator.getNext();
