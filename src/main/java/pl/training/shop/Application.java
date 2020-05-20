@@ -3,8 +3,8 @@ package pl.training.shop;
 import lombok.extern.java.Log;
 import org.javamoney.moneta.FastMoney;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import pl.training.shop.payments.LoggingProxyPaymentService;
 import pl.training.shop.payments.PaymentRequest;
+import pl.training.shop.payments.PaymentService;
 
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
@@ -20,7 +20,7 @@ public class Application {
 
     public static void main(String[] args) {
         try (AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(BASE_PACKAGE)) {
-            var paymentService = applicationContext.getBean(LoggingProxyPaymentService.class);
+            var paymentService = applicationContext.getBean(PaymentService.class);
             var paymentRequest = PaymentRequest.builder()
                     .money(money)
                     .build();
