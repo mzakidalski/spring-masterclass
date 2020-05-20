@@ -3,11 +3,15 @@ package pl.training.shop.payments;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Map;
 
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class HashMapPaymentRepositoryTest {
 
     private static final String PAYMENT_ID = "1";
@@ -15,8 +19,10 @@ public class HashMapPaymentRepositoryTest {
             .id(PAYMENT_ID)
             .build();
 
-    private final Map<String, Payment> payments = mock(Map.class);
     private final HashMapPaymentRepository paymentRepository = new HashMapPaymentRepository();
+
+    @Mock
+    private Map<String, Payment> payments;
 
     @BeforeEach
     void setUp() {

@@ -4,6 +4,9 @@ import org.javamoney.moneta.FastMoney;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -11,6 +14,7 @@ import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class FakePaymentServiceTest {
 
     private static final String PAYMENT_ID = "1";
@@ -19,16 +23,17 @@ public class FakePaymentServiceTest {
             .money(MONEY)
             .build();
 
-    private final PaymentIdGenerator paymentIdGenerator = mock(PaymentIdGenerator.class);
-    private final PaymentRepository paymentRepository = mock(PaymentRepository.class);
-    private final FakePaymentService paymentService = new FakePaymentService(paymentIdGenerator, paymentRepository);
-
+    @Mock
+    private PaymentIdGenerator paymentIdGenerator;
+    @Mock
+    private PaymentRepository paymentRepository;
     private Payment payment;
 
     @BeforeEach
     void setUp() {
         when(paymentIdGenerator.getNext()).thenReturn(PAYMENT_ID);
         when(paymentRepository.save(any(Payment.class))).then(returnsFirstArg());
+        var paymentService = new FakePaymentService(paymentIdGenerator, paymentRepository);
         payment = paymentService.process(PAYMENT_REQUEST);
     }
 
