@@ -22,9 +22,6 @@ public class Application {
         var paymentIdGenerator = new IncrementalPaymentIdGenerator();
         var fakePaymentService = new FakePaymentService(paymentIdGenerator);
         var paymentService = new LoggingProxyPaymentService(fakePaymentService);
-
-        //-------------------------------------------------------------------------
-
         var paymentRequest = PaymentRequest.builder()
                 .money(money)
                 .build();
