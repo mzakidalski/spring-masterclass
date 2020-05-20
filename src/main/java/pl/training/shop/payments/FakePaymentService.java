@@ -1,13 +1,11 @@
 package pl.training.shop.payments;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 
 import java.time.Instant;
 
 @Log
-@RequiredArgsConstructor
-public class FakePaymentsService {
+public class FakePaymentService {
 
     private final UUIDPaymentIdGenerator paymentIdGenerator = new UUIDPaymentIdGenerator();
 
