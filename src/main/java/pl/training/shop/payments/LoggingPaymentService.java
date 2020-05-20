@@ -13,7 +13,7 @@ public class LoggingPaymentService implements PaymentService {
 
     @Override
     public Payment process(PaymentRequest paymentRequest) {
-        Payment payment = paymentService.process(paymentRequest);
+        var payment = paymentService.process(paymentRequest);
         log.info(createLogEntry(payment));
         return payment;
     }
