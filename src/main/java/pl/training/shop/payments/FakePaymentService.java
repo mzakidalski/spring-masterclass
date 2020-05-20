@@ -7,9 +7,9 @@ import java.time.Instant;
 
 @Log
 @RequiredArgsConstructor
-public class FakePaymentsService {
+public class FakePaymentService {
 
-    private final UUIDPaymentIdGenerator paymentIdGenerator = new UUIDPaymentIdGenerator();
+    private final PaymentIdGenerator paymentIdGenerator;
 
     public Payment process(PaymentRequest paymentRequest) {
         var payment = Payment.builder()
