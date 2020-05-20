@@ -15,14 +15,14 @@ public class Application {
 
     private static final String BASE_PACKAGE = "pl.training.shop";
     private static final Locale LOCALE = Locale.getDefault();
-    private static final CurrencyUnit currencyUnit = Monetary.getCurrency(LOCALE);
-    private static final FastMoney money = FastMoney.of(1_000, currencyUnit);
+    private static final CurrencyUnit CURRENCY_UNIT = Monetary.getCurrency(LOCALE);
+    private static final FastMoney MONEY = FastMoney.of(1_000, CURRENCY_UNIT);
 
     public static void main(String[] args) {
         try (AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(BASE_PACKAGE)) {
             var paymentService = applicationContext.getBean(PaymentService.class);
             var paymentRequest = PaymentRequest.builder()
-                    .money(money)
+                    .money(MONEY)
                     .build();
             var payment = paymentService.process(paymentRequest);
             log.info(payment.toString());
