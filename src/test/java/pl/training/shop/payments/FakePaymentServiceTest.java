@@ -7,8 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.AdditionalAnswers.returnsFirstArg;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 public class FakePaymentServiceTest {
 
@@ -19,13 +20,15 @@ public class FakePaymentServiceTest {
             .build();
 
     private final PaymentIdGenerator paymentIdGenerator = mock(PaymentIdGenerator.class);
-    private final FakePaymentService paymentService = new FakePaymentService(paymentIdGenerator);
+    private final PaymentRepository paymentRepository = mock(PaymentRepository.class);
+    private final FakePaymentService paymentService = new FakePaymentService(paymentIdGenerator, paymentRepository);
 
     private Payment payment;
 
     @BeforeEach
     void setUp() {
         when(paymentIdGenerator.getNext()).thenReturn(PAYMENT_ID);
+        when(paymentRepository.save(any(Payment.class))).then(returnsFirstArg());
         payment = paymentService.process(PAYMENT_REQUEST);
     }
 
@@ -51,6 +54,12 @@ public class FakePaymentServiceTest {
     @Test
     void shouldAssignStartedStatusToCreatedPayment() {
         assertEquals(PaymentStatus.STARTED, payment.getStatus());
+    }
+
+    @DisplayName("Should save created payment")
+    @Test
+    void shouldSaveCreatedPayment() {
+        verify(paymentRepository).save(payment);
     }
 
 }
