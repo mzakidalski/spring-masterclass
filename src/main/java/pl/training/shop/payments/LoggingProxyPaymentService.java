@@ -11,7 +11,7 @@ public class LoggingProxyPaymentService implements PaymentService {
 
     private static final String LOG_FORMAT = "A new payment of %s has been initiated";
 
-    private final PaymentService paymentService;
+    private final FakePaymentService paymentService;
 
     @Override
     public Payment process(PaymentRequest paymentRequest) {
