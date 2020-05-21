@@ -14,7 +14,8 @@ public class HashMapPaymentRepository implements PaymentRepository{
 
     @Override
     public Payment save(Payment payment) {
-        return payments.put(payment.getId(), payment);
+        payments.put(payment.getId(), payment);
+        return payment;
     }
 
 }
