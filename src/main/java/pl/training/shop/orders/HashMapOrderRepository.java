@@ -1,11 +1,14 @@
 package pl.training.shop.orders;
 
+import lombok.Setter;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 public class HashMapOrderRepository implements OrderRepository {
 
+    @Setter
     private Map<Long, Order> orders = new HashMap<>();
     private long index = 0;
 
