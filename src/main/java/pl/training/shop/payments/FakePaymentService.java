@@ -24,12 +24,4 @@ public class FakePaymentService implements PaymentService {
         return paymentRepository.save(payment);
     }
 
-    public void init() {
-        log.info("PaymentService initialized");
-    }
-
-    public void destroy() {
-        log.info("PaymentService is going down");
-    }
-
 }
