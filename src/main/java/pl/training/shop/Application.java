@@ -1,11 +1,9 @@
 package pl.training.shop;
 
 import lombok.extern.java.Log;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pl.training.shop.orders.Order;
 import pl.training.shop.payments.LocalMoney;
-import pl.training.shop.payments.PaymentRequest;
-import pl.training.shop.payments.PaymentService;
 import pl.training.shop.products.Product;
 import pl.training.shop.products.ProductType;
 
@@ -14,7 +12,7 @@ import java.util.List;
 @Log
 public class Application {
 
-    private static final String BASE_PACKAGE = "pl.training.shop";
+    private static final String CONFIGURATION_FILE = "shop.xml";
     private static final Product VIDEO_PRODUCT = Product.builder()
             .name("Spring masterclass")
             .description("Praktyczny kurs Spring framework")
@@ -29,7 +27,7 @@ public class Application {
             .build();
 
     public static void main(String[] args) {
-        try (AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(BASE_PACKAGE)) {
+        try (ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(CONFIGURATION_FILE)) {
             var shopService = applicationContext.getBean(ShopService.class);
             shopService.addProduct(VIDEO_PRODUCT);
             shopService.addProduct(BOOK_PRODUCT);
