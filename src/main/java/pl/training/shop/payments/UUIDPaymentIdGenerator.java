@@ -2,7 +2,7 @@ package pl.training.shop.payments;
 
 import java.util.UUID;
 
-@IdGenerator("uuid")
+@IdGenerator
 public class UUIDPaymentIdGenerator implements PaymentIdGenerator {
 
     @Override
