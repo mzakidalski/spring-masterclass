@@ -12,8 +12,8 @@ public class OrdersConfiguration {
     }
 
     @Bean
-    public OrderService orderService() {
-        return new OrderService(orderRepository());
+    public OrderService orderService(OrderRepository orderRepository) {
+        return new OrderService(orderRepository);
     }
 
 }
