@@ -19,7 +19,7 @@ public class PaymentsConfiguration {
     }
 
     @Bean
-    public PaymentService fakePaymentService(PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository, ApplicationEventPublisher eventPublisher) {
+    public PaymentService paymentService(PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository, ApplicationEventPublisher eventPublisher) {
         return new FakePaymentService(paymentIdGenerator, paymentRepository, eventPublisher);
     }
 
