@@ -28,7 +28,7 @@ public class HashMapOrderRepository implements OrderRepository {
 
     @Override
     public void update(Order order) {
-        orders.putIfAbsent(order.getId(), order);
+        orders.replace(order.getId(), order);
     }
 
 }
