@@ -17,7 +17,7 @@ public class PaymentsConfiguration {
     }
 
     @Bean
-    public PaymentService fakePaymentService(PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository) {
+    public PaymentService paymentService(PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository) {
         return new FakePaymentService(paymentIdGenerator, paymentRepository);
     }
 
