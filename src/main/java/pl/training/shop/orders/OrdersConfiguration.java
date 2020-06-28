@@ -13,7 +13,7 @@ public class OrdersConfiguration {
 
     @Bean
     public OrderService orderService(OrderRepository orderRepository) {
-        return new OrderService(orderRepository);
+        return new OrderService(orderRepository);                                         
     }
 
 }
