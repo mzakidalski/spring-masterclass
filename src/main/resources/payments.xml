@@ -16,4 +16,6 @@
 
     <bean class="pl.training.shop.payments.PaymentConsoleLogger"/>
 
+    <bean class="pl.training.shop.payments.PaymentStatusChangeListener"/>
+
 </beans>
