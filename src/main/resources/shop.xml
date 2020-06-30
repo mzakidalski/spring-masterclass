@@ -23,4 +23,23 @@
         <property name="defaultEncoding" value="utf-8"/>
     </bean>
 
+    <bean id="profiler" class="pl.training.shop.common.profiler.Profiler"/>
+
+    <bean id="validatorFactory" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+
+    <bean id="validatorService" class="pl.training.shop.common.validator.ValidatorService">
+        <constructor-arg name="validator" ref="validatorFactory"/>
+    </bean>
+
+    <bean id="modelValidator" class="pl.training.shop.common.validator.ModelValidator"/>
+
+    <aop:config>
+        <aop:aspect ref="profiler">
+            <aop:around method="logExecutionTime" pointcut="@annotation(pl.training.shop.common.profiler.ExecutionTime)"/>
+        </aop:aspect>
+        <aop:aspect ref="modelValidator">
+            <aop:before method="validate" pointcut="bean(orderService)"/>
+        </aop:aspect>
+    </aop:config>
+
 </beans>

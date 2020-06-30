@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <bean id="incrementalPaymentIdGenerator" class="pl.training.shop.payments.IncrementalPaymentIdGenerator"/>
 
@@ -14,8 +14,18 @@
         <constructor-arg name="paymentRepository" ref="hashMapPaymentRepository"/>
     </bean>
 
-    <bean class="pl.training.shop.payments.PaymentConsoleLogger"/>
+    <bean id="paymentConsoleLogger" class="pl.training.shop.payments.PaymentConsoleLogger"/>
 
     <bean class="pl.training.shop.payments.PaymentStatusChangeListener"/>
+
+    <aop:config>
+        <aop:aspect ref="paymentConsoleLogger">
+            <aop:pointcut id="logPayments" expression="@annotation(pl.training.shop.payments.LogPayments)"/>
+            <aop:before method="beforePayment" pointcut="@annotation(pl.training.shop.payments.LogPayments) and args(paymentRequest)"/>
+            <aop:after-returning method="log" pointcut-ref="logPayments" returning="payment"/>
+            <aop:after method="afterPayment" pointcut-ref="logPayments"/>
+            <aop:after-throwing method="onException" pointcut-ref="logPayments" throwing="exception"/>
+        </aop:aspect>
+    </aop:config>
 
 </beans>
