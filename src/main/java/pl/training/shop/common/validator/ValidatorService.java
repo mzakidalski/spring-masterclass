@@ -14,7 +14,7 @@ public class ValidatorService {
         var violations = validator.validate(object);
         if (!violations.isEmpty()) {
             try {
-                var exception= exceptionType.getDeclaredConstructor();
+                var exception = exceptionType.getDeclaredConstructor();
                 throw exception.newInstance();
             } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 throw new IllegalArgumentException();
