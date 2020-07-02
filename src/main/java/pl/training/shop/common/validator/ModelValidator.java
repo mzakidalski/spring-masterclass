@@ -7,7 +7,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Optional;
-import java.util.stream.IntStream;
+
+import static java.util.stream.IntStream.range;
 
 @RequiredArgsConstructor
 public class ModelValidator {
@@ -15,15 +16,14 @@ public class ModelValidator {
     private final ValidatorService validatorService;
 
     public void validate(JoinPoint joinPoint) {
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-        Object[] arguments = joinPoint.getArgs();
-        IntStream.range(0, arguments.length)
-                .forEach(index -> validate(methodSignature, arguments[index], index));
+        var methodSignature = (MethodSignature) joinPoint.getSignature();
+        var arguments = joinPoint.getArgs();
+        range(0, arguments.length).forEach(index -> validate(methodSignature, arguments[index], index));
     }
 
     private void validate(MethodSignature methodSignature, Object argument, int argumentIndex) {
-        Annotation[] annotations= getAnnotations(methodSignature, argumentIndex);
-        Optional<Validate> validateAnnotation = getValidateAnnotation(annotations);
+        var annotations= getAnnotations(methodSignature, argumentIndex);
+        var validateAnnotation = getValidateAnnotation(annotations);
         validateAnnotation.ifPresent(validate -> validatorService.validate(argument, validate.exception()));
     }
 
