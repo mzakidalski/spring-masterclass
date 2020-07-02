@@ -15,9 +15,9 @@ public class Profiler {
     //@Around("bean(paymentService)")
     //@Around("@annotation(ExecutionTime)")
     public Object logExecutionTime(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        long startTime = System.nanoTime();
-        Object result = proceedingJoinPoint.proceed();
-        long totalTime = System.nanoTime() - startTime;
+        var startTime = System.nanoTime();
+        var result = proceedingJoinPoint.proceed();
+        var totalTime = System.nanoTime() - startTime;
         log.info(String.format("%s executed in %d ns", proceedingJoinPoint.getSignature(), totalTime));
         return result;
     }

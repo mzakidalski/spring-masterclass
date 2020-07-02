@@ -15,7 +15,7 @@ public class MethodExecutor {
 
     @Around("@annotation(Retry)")
     public Object execute(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        int currentAttempt = 0;
+        var currentAttempt = 0;
         Throwable throwable;
         do {
             currentAttempt++;
