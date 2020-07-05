@@ -23,11 +23,11 @@ public class Order {
     @GeneratedValue
     @Id
     private Long id;
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @NotEmpty
     @NonNull
     private List<Product> products;
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
     @Valid
     private Payment payment;
     private Instant timestamp;
