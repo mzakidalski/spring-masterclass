@@ -11,6 +11,8 @@ import pl.training.shop.payments.PaymentService;
 import pl.training.shop.products.Product;
 import pl.training.shop.products.ProductService;
 
+import java.util.List;
+
 @Transactional
 @RequiredArgsConstructor
 public class ShopService {
@@ -21,6 +23,10 @@ public class ShopService {
 
     public Product addProduct(Product product) {
         return productService.add(product);
+    }
+
+    public List<Product> getByName(String name) {
+        return productService.getByName(name);
     }
 
     public PagedResult<Product> getProducts(int pageNumber, int pageSize) {
