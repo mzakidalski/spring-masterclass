@@ -1,11 +1,16 @@
 package pl.training.shop.products;
 
-import pl.training.shop.common.PagedResult;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-public interface ProductRepository {
+import java.util.List;
 
-    Product save(Product product);
+public interface ProductRepository extends JpaRepository<Product, Long>, ProductRepositoryCustom {
 
-    PagedResult<Product> findAll(int pageNumber, int pageSize);
+    List<Product> findByNameContaining(String name);
+
+    @Query("select p from Product p where p.type = :type")
+    List<Product> findByType(@Param("type") ProductType type);
 
 }
