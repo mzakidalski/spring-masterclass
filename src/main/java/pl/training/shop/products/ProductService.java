@@ -11,8 +11,7 @@ public class ProductService {
 
     @Retry
     public Product add(Product product) {
-        throw new RuntimeException();
-        //return productRepository.save(product);
+        return productRepository.save(product);
     }
 
     public PagedResult<Product> getAll(int pageNumber, int pageSize) {
