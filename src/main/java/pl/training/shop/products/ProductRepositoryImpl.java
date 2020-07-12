@@ -17,7 +17,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     public Optional<Product> findByDescription(String description) {
         Optional<Product> result;
         try {
-            result = Optional.of(entityManager.createNamedQuery("select p from Product p where p.description = :description", Product.class)
+            result = Optional.of(entityManager.createQuery("select p from Product p where p.description = :description", Product.class)
                     .setParameter("description", description)
                     .getSingleResult());
         } catch (NoResultException exception) {
