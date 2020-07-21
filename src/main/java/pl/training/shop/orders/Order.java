@@ -26,7 +26,7 @@ public class Order {
 
     @NotEmpty
     @NonNull
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private List<Product> products;
     @OneToOne(cascade = CascadeType.PERSIST)
     @Valid
