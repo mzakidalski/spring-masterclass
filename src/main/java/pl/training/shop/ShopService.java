@@ -10,6 +10,9 @@ import pl.training.shop.payments.PaymentService;
 import pl.training.shop.products.Product;
 import pl.training.shop.products.ProductService;
 
+import javax.transaction.Transactional;
+
+@Transactional
 @RequiredArgsConstructor
 public class ShopService {
 
